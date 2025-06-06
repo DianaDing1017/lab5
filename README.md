@@ -65,7 +65,7 @@ The server's confidence should typically be higher than the ESP32's local infere
 - User experience becomes inconsistent.
 - Vulnerable to fluctuations in network speed.
 
-#### ⚖Prediction Consistency
+#### Prediction Consistency
 - Different models may yield different results on the same input.
 
 #### Data Privacy
@@ -75,11 +75,26 @@ The server's confidence should typically be higher than the ESP32's local infere
 
 ---
 
-## 4. Mitigation Strategy
+## 4. Name a strategy to mitigate at least one limitation named in question 3.
 
-### Strategy: Dynamic Confidence Threshold Adjustment  
-**Problem Addressed:** Network Dependency
+**Strategy: Dynamic Confidence Threshold Adjustment**  
+**Targeted Problem: Connectivity dependency**  
+**Solution:**  
+Instead of using a fixed 80% confidence threshold, the system can adjust this threshold based on network availability:  
+- When WiFi is connected and stable: Use lower threshold (70%) to get more accurate cloud results  
+- When WiFi is unstable or disconnected: Use higher threshold (90%) to rely more on local inference  
+- Network quality detection: Periodically test connection speed and adjust threshold accordingly  
 
-Dynamically adjust the threshold for triggering cloud inference based on signal quality or recent prediction trends to reduce unnecessary cloud calls under poor network conditions.
+**Benefits:**  
+- Reduces dependency on cloud connection  
+- Maintains functionality even with poor network  
+- Automatically adapts to changing network conditions  
+- Simple to implement with just threshold value changes  
+
+**Alternative Strategies:**  
+- **Edge Federated Learning:** Multiple ESP32 devices collaborate to learn and share anonymized model improvements  
+- **Local Data Augmentation:** Generate synthetic training data on device to improve local model performance  
+- **Hierarchical Decision Tree:** Use simple rules to judge obvious gestures first, use neural networks only for complex cases
+
 
 
